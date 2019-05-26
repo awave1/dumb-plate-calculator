@@ -6,18 +6,23 @@ export default function plateCalc(weight, withBar = true) {
   let half = (withBar ? weight - bar : weight) / 2;
   let result = {};
 
-  // TODO: Add a fix for weights not divisible by 5
   if (half) {
-    while (half > 0) {
-      for (let i = 0; i < plates.length; i++) {
-        const plate = plates[i];
-        const res = Math.floor(half / plate);
+    for (let i = 0; i < plates.length; i++) {
+      const plate = plates[i];
+      const res = Math.floor(half / plate);
 
-        if (res) {
-          half -= res * plate;
-          result[plate] = res;
+      if (res) {
+        half -= res * plate;
+        result[plate] = res;
+
+        if (!half) {
+          break;
         }
       }
+    }
+
+    if (half) {
+      result.remaining = half;
     }
   } else {
     result = undefined;

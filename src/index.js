@@ -9,7 +9,7 @@ $input.addEventListener('input', ({ target: { value } }) => {
   const plates = plateCalc(value);
   $result.innerHTML = `you need:
     ${Object.keys(plates)
-      .map(p => `${plates[p]}x${p}lbs`)
+      .map(p => !isNaN(p) ? `${plates[p]}x${p}lbs` : `${p} ${plates[p]}lbs`)
       .join(', ')}
     `;
 });
